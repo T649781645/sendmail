@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<title>工资条群发工具-参数配置</title>
+  <meta name="keywords" content="工资条" />
+  <meta name="description" content="工资条群发" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <link type="image/x-icon" href="__APP__/favicon.ico" rel="shortcut icon" />
+  <link href="__APP__/favicon.ico" rel="bookmark icon" />
+  <link rel="stylesheet" href="__PUBLIC__/pintuer/pintuer.css">
+  <link rel="stylesheet" href="__PUBLIC__/Css/style.css">
+  <script src="__PUBLIC__/pintuer/jquery.js"></script>
+  <script src="__PUBLIC__/pintuer/pintuer.js"></script>
+  <script src="__PUBLIC__/pintuer/respond.js"></script>
+  <!--<script src="__PUBLIC__/pintuer/jquery.form.js"></script>-->
+  <script src="__PUBLIC__/layer/layer.js"></script>
+  <style type="text/css">
+    table th,table td {font-size: 6px;}
+    .button-small {line-height: 14px;}
+  </style>
+  <script type="text/javascript">
+  $(function() {
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    //提交后关闭
+    $('#submit').click(function(){
+      $.post('{:U('Index/config')}',$("#form").serialize(),function(data){
+        if(data.status == 1) {
+          parent.layer.msg(data.info,{icon:1,time:1000});
+          setTimeout(function() {
+            window.parent.location.reload();//刷新父层（一定要在关闭之前）
+            parent.layer.close(index);/*通知父层关闭本层*/
+          }, 1000);
+        }else {
+          parent.layer.msg(data.info,{icon:2,time:1000});
+        }
+      });
+    });
+  });
+  </script>
+</head>
+<body>
+<div class="container-layer margin">
+  <!-- 主体开始 -->
+  <div class="margin-top margin-bottom">
+      <form class="form-x" name="form" id="form" action="{:U('Index/config')}" method="Post">
+        <div class="form-group">
+          <div class="label">
+            <label for="nick">发信姓名:</label>
+          </div>
+          <div class="field">
+          <input type="text" class="input input-auto" id="nick" name="nick" size="20" value="{$Think.session.email.nick|default='test'}" placeholder="发信人名字" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label">
+            <label for="user">发信邮箱:</label>
+          </div>
+          <div class="field">
+          <input type="text" class="input input-auto" id="user" name="user" size="30" value="{$Think.session.email.user|default='test@ltbl.cn'}" placeholder="test@ltbl.cn" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label">
+            <label for="pass">邮箱密码:</label>
+          </div>
+          <div class="field">
+          <input type="password" class="input input-auto" id="pass" name="pass" size="30" value="{$Think.session.email.pass|default='Ltbl125'}" placeholder="你的企业邮箱发信密码" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label">
+            <label for="subject">邮件主旨:</label>
+          </div>
+          <div class="field">
+          <input type="text" class="input input-auto" id="subject" name="subject" size="50" value="{$subject}" placeholder="邮件主旨" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label">
+            <label for="body">正文模板:</label>
+          </div>
+          <div class="field">
+            <textarea name="body" id="body" class="input" rows="5" cols="50" placeholder="邮件正文模板">{$body}</textarea>
+          </div>
+        </div>
+
+        <div class="form-button">
+          <button id="submit" class="button bg-sub" type="button">保存设置</button>
+        </div>
+      </form>
+  </div>
+  <!-- 主体结束 -->
+</div>
+</body>
+</html>

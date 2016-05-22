@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<title>工资条群发工具</title>
+  <meta name="keywords" content="工资条" />
+  <meta name="description" content="工资条群发" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <link type="image/x-icon" href="__APP__/favicon.ico" rel="shortcut icon" />
+  <link href="__APP__/favicon.ico" rel="bookmark icon" />
+  <link rel="stylesheet" href="__PUBLIC__/pintuer/pintuer.css">
+  <link rel="stylesheet" href="__PUBLIC__/Css/style.css">
+  <script src="__PUBLIC__/pintuer/jquery.js"></script>
+  <script src="__PUBLIC__/pintuer/pintuer.js"></script>
+  <script src="__PUBLIC__/pintuer/respond.js"></script>
+  <script src="__PUBLIC__/pintuer/jquery.form.js"></script>
+  <script src="__PUBLIC__/layer/layer.js"></script>
+  <style type="text/css">
+    table th,table td {font-size: 6px;}
+    .button-small {line-height: 14px;}
+  </style>
+  <script type="text/javascript">
+  $(function() {
+    var config = "{$config}";
+    if(config == 0) {
+      layer.open({
+        type: 2,
+        title: '参数配置',
+        shadeClose: false, //点击遮罩关闭层
+        shade: 0.65,
+        area : ['600px' , '530px'],
+        skin: 'layui-layer-molv',
+        content: '{:U('Index/config')}'
+      });
+    }
+  })
+  </script>
+</head>
+<body>
+<div class="container-layer margin">
+  <form class="form margin-top margin-bottom" name="upload" action="{:U('Index/Upload')}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" name="submit" value="加载">
+    <notempty name='list'>
+      <a class="button button-small" href="{:U('Index/sendmail',array('file'=>I('file')))}">开始发送邮件</a>
+    </notempty>
+  </form>
+    <p><a href="{:U('Index/template')}">模板下载</a> <a href="{:U('Index/config')}">修改配置</a></p>
+  <!-- 主体开始 -->
+  <div class="margin-top margin-bottom">
+    <div class="table-responsive">
+      <notempty name='list'>
+      <table class="table table-bordered table-striped table-hover">
+        <tr>
+          <foreach name='title' item='vo'>
+          <th>{$vo}</th>
+          </foreach>
+        </tr>
+        <foreach name="list" item="vo">
+        <tr>
+          <foreach name='vo' item='value'>
+          <td align="center">{$value}</td>
+          </foreach>
+        </tr>
+        </foreach>
+      </table>
+      </notempty>
+    </div>
+  </div>
+  <!-- 主体结束 -->
+</div>
+</body>
+</html>

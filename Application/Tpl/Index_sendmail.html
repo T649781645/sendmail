@@ -1,0 +1,15 @@
+<div>
+  <p>{$username},你好！以下为你2016年4月份(03.26-04.25)工资明细，请查收。</p>
+  <table width="100%" border="1" cellspacing="0" bordercolor="#ccc" style="font-size: 10px;">
+    <tr style="background: #D7E4BC;">
+      <foreach name='title' item='vo'>
+      <th style="word-break: keep-all;">{$vo}</th>
+      </foreach>
+    </tr>
+    <tr style="background: #eeeeee;">
+      <foreach name='list' item='v'>
+      <td style="word-break: keep-all;">{$v}</td>
+      </foreach>
+    </tr>
+  </table>
+</div>
