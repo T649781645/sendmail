@@ -27,7 +27,6 @@ class IndexAction extends Action {
       $this->error($upload->getErrorMsg());//提示错误信息
     } else{// 上传成功
       $info =  $upload->getUploadFileInfo();//获取上传文件信息
-      //$this->success('上传成功!',U('Index/index',array('file'=>$info['savename'])));
       redirect(U('Index/index').'?file='.$info[0]['savename']);
     }
   }
@@ -50,8 +49,7 @@ class IndexAction extends Action {
     foreach($list as $key => $value) {
       $temp_value = $value;//临时保留邮箱列供下面写日志使用
       $config['to'] = $value[2];//收件人
-      //$config['subject'] = str_replace('{$username}',$value[1],$config['subject']);//'4月份薪资明细-'  . $value[1] . '*机密'
-      $config['subject'] = str_replace('{$username}',$value[1],session('email.subject'));//'4月份薪资明细-'  . $value[1] . '*机密'
+      $config['subject'] = str_replace('{$username}',$value[1],session('email.subject'));//'4月份薪资明细-'  . $value[1] . '*机密*'
       unset($value[2]);//删除邮箱数据列
       $this->assign('list',$value);//把当前人员数据赋值给模版
       $this->assign('username',$value[1]);//当前用户名
@@ -107,10 +105,6 @@ class IndexAction extends Action {
       $this->body = session('?email')?session('email.body'):file_get_contents(APP_PATH.'/Conf/static_config/template.txt');
       $this->display();
     }
-  }
-
-  public function test(){
-    dump(session('email'));
   }
 
 }
