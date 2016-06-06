@@ -13,7 +13,6 @@
   <script src="__PUBLIC__/pintuer/jquery.js"></script>
   <script src="__PUBLIC__/pintuer/pintuer.js"></script>
   <script src="__PUBLIC__/pintuer/respond.js"></script>
-  <!--<script src="__PUBLIC__/pintuer/jquery.form.js"></script>-->
   <script src="__PUBLIC__/layer/layer.js"></script>
   <style type="text/css">
     table th,table td {font-size: 6px;}
@@ -58,7 +57,7 @@
             <label for="user">发信邮箱:</label>
           </div>
           <div class="field">
-          <input type="text" class="input input-auto" id="user" name="user" size="30" value="{$Think.session.email.username|default='test@ltbl.cn'}" placeholder="test@ltbl.cn" />
+          <input type="text" class="input input-auto" id="user" name="user" size="30" value="{$Think.session.email.username|default=''}" placeholder="你的企业邮箱账号" />
           </div>
         </div>
 
@@ -67,7 +66,7 @@
             <label for="pass">邮箱密码:</label>
           </div>
           <div class="field">
-          <input type="password" class="input input-auto" id="pass" name="pass" size="30" value="{$Think.session.email.password|default='Ltbl125'}" placeholder="你的企业邮箱发信密码" />
+          <input type="password" class="input input-auto" id="pass" name="pass" size="30" value="{$Think.session.email.password|default=''}" placeholder="你的企业邮箱发信密码" />
           </div>
         </div>
 
