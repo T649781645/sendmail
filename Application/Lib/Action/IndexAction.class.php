@@ -50,12 +50,14 @@ class IndexAction extends Action {
     foreach($list as $key => $value) {
       $temp_value = $value;//临时保留邮箱列供下面写日志使用
       $config['to'] = $value[2];//收件人
-      $config['subject'] = str_replace('{$username}',$value[1],$config['subject']);//'4月份薪资明细-'  . $value[1] . '*机密'
+      //$config['subject'] = str_replace('{$username}',$value[1],$config['subject']);//'4月份薪资明细-'  . $value[1] . '*机密'
+      $config['subject'] = str_replace('{$username}',$value[1],session('email.subject'));//'4月份薪资明细-'  . $value[1] . '*机密'
       unset($value[2]);//删除邮箱数据列
       $this->assign('list',$value);//把当前人员数据赋值给模版
       $this->assign('username',$value[1]);//当前用户名
       $config['body'] = $this->fetch();//获取模版内容邮件内容
       $mail->setServer("smtp.exmail.qq.com");
+
       $mail->setMailInfo($config);
       if(!$mail->sendMail()) {
         echo $mail->error() . '<br>';
@@ -91,13 +93,24 @@ class IndexAction extends Action {
       $config = array('from'=>I('user'),'username'=>I('user'),'password'=>I('pass'),'subject'=>I('subject'),'body'=>$_POST['body'],'isHTML'=>TRUE);
       session('email',$config);
       if(file_put_contents(TMPL_PATH.'Index_sendmail.html',session('email.body'))) {
-        $this->success('保存成功,关闭浏览器配置失效!');
+        /*if(IS_POST) {
+          $this->redirect(U('Index/index'),'保存成功!',3);
+        }*/
+        if(IS_AJAX) {
+          $this->success('保存成功,关闭浏览器配置失效!');
+        }
+        $t = session('email');
+        dump($t);
       }
     }else {
       $this->subject = session('?email')?session('email.subject'):file_get_contents(APP_PATH.'/Conf/static_config/subject.txt');
       $this->body = session('?email')?session('email.body'):file_get_contents(APP_PATH.'/Conf/static_config/template.txt');
       $this->display();
     }
+  }
+
+  public function test(){
+    dump(session('email'));
   }
 
 }

@@ -49,7 +49,7 @@
             <label for="nick">发信姓名:</label>
           </div>
           <div class="field">
-          <input type="text" class="input input-auto" id="nick" name="nick" size="20" value="{$Think.session.email.nick|default='test'}" placeholder="发信人名字" />
+          <input type="text" class="input input-auto" id="nick" name="nick" size="20" value="{$Think.session.email.nick|default='肖校存'}" placeholder="发信人名字" />
           </div>
         </div>
 
@@ -58,7 +58,7 @@
             <label for="user">发信邮箱:</label>
           </div>
           <div class="field">
-          <input type="text" class="input input-auto" id="user" name="user" size="30" value="{$Think.session.email.user|default='test@ltbl.cn'}" placeholder="test@ltbl.cn" />
+          <input type="text" class="input input-auto" id="user" name="user" size="30" value="{$Think.session.email.username|default='test@ltbl.cn'}" placeholder="test@ltbl.cn" />
           </div>
         </div>
 
@@ -67,7 +67,7 @@
             <label for="pass">邮箱密码:</label>
           </div>
           <div class="field">
-          <input type="password" class="input input-auto" id="pass" name="pass" size="30" value="{$Think.session.email.pass|default='Ltbl125'}" placeholder="你的企业邮箱发信密码" />
+          <input type="password" class="input input-auto" id="pass" name="pass" size="30" value="{$Think.session.email.password|default='Ltbl125'}" placeholder="你的企业邮箱发信密码" />
           </div>
         </div>
 
